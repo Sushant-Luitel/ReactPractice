@@ -1,13 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import App from './App';
+function MyThing(){
+  return(
+<div className='book'>
+  <div className='title'>
+    The Title
+  </div>
+  <div className='author'>
+    The Author
+  </div>
+  <ul className='stats'>
+    <li className='rating'>
+      5 stars
+    </li>
+    <li className='isbn'>
+      12-345678-910
+    </li>
+  </ul>
 
+</div>)
+}
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
+ReactDOM.render(<MyThing/>,document.getElementById('root'));

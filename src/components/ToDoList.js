@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Task } from "./Task";
 export function TodoList() {
   const [todolist, settodolist] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -7,15 +8,41 @@ export function TodoList() {
     setInputValue(event.target.value);
   };
 
-  const updateTask = () => {
-    settodolist([...todolist, inputValue]);
+  const addTask = () => {
+    const newTask={
+        id:todolist.length===0?1:todolist[todolist.length-1].id+1,
+        name:inputValue,
+        iscompleted: false
+    }
+    settodolist([...todolist, newTask]);
+   
   };
+  
+  
+
+
+
+  const deleteTask=(id)=>{
+    const newTodolist= todolist.filter((task)=>task.id!==id)
+    settodolist(newTodolist);
+  }
+  const completeTask=(id)=>{
+    settodolist(
+        todolist.map((task)=>{
+            if (task.id===id){
+                return {...task, iscompleted: true}
+            }else 
+            return task
+        })
+    )
+
+  }
   return (
-    <div className="input">
-      <input type="text" onChange={handleChange} />
-      <button onClick={updateTask}>Add Task</button>
+    <div className="main">
+      <input class="input" type="text" onChange={handleChange} />
+      <button onClick={addTask}>Add Task</button>
       {todolist.map((item) => {
-        return <h1>{item}</h1>;
+        return <Task completeTask={completeTask} deleteTask={deleteTask} name={item.name} id={item.id} iscompleted={item.iscompleted}  />
       })}
     </div>
   );
